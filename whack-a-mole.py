@@ -35,7 +35,7 @@ class WhackMole(LaunchKey):
     def add_mole(self, n):
         self.process_decay(n)
 
-        if randint(1, 2000) < 10:
+        if randint(1, 1500) < 10:
             color = choice(self.colors)
             self.state[n] = True
             self.light(n, color)
