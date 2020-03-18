@@ -1,7 +1,4 @@
-import mido
-from time import time, sleep
-import random
-
+from time import sleep
 from mido import Message
 
 from launchkey import LaunchKey, BRIGHT_WHITE, PINK, TEAL
@@ -34,16 +31,17 @@ class DrawingBoard(LaunchKey):
 
     def loop(self):
         while True:
-            while self.ctrl_in.poll():
-                msg = self.ctrl_in.receive()
-                print("Message>", msg)
+            for msg in self.ctrl_in.iter_pending():
+                if msg.type == "note_on":
+                    if msg.note < 95:
+                        continue
 
-                if msg and hasattr(msg, "note"):
-                    position = msg.note - 95
-                    self.update_color(position)
+                    self.update_color(msg.note - 95)
 
-                if msg and msg.type == "control_change" and msg.control is 59:
+                if msg.type == "control_change" and msg.control is 59:
                     self.reset()
+
+            sleep(0.05)
 
 
 DrawingBoard()

@@ -4,7 +4,6 @@ from launchkey import LaunchKey
 board = LaunchKey()
 board.clear_lights()
 
-
 def running_lights():
     color = 2
 
