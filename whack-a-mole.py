@@ -20,7 +20,7 @@ class WhackMole(LaunchKey):
         print("Go!")
         self.game_loop()
 
-    def add_mole(self, n):
+    def process_decay(self, n):
         if self.decay_state[n] == 1:
             self.decay_state[n] = 0
             self.state[n] = False
@@ -31,6 +31,9 @@ class WhackMole(LaunchKey):
 
         elif self.decay_state[n] > 1:
             self.decay_state[n] = self.decay_state[n] - 1
+
+    def add_mole(self, n):
+        self.process_decay(n)
 
         if randint(1, 2000) < 10:
             color = choice(self.colors)
