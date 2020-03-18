@@ -31,8 +31,6 @@ class LaunchKey:
         ports = self.init_launchkey_ports()
         self.enable_extended_mode()
 
-        print("LaunchKey Ready.")
-
         return ports
 
     def init_launchkey_ports(
@@ -55,7 +53,7 @@ class LaunchKey:
     def light(self, position, color):
         note = 95 + position
         msg = Message("note_on", channel=15, note=note, velocity=color)
-        print("Note {} -> Color {}".format(note, color))
+        # print("Note {} -> Color {}".format(note, color))
         self.ctrl_out.send(msg)
 
     def clear_lights(self, color=BRIGHT_WHITE):
